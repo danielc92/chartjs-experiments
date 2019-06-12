@@ -156,20 +156,48 @@ btn3_remove.addEventListener('click', removeData);
 
 /* Filtered chart */
 let raw = [{'sale':12.32, 'category':'PANTS'},
-            {'sale':43.32, 'category':'PANTS'},
-            {'sale':11.32, 'category':'SHIRTS'},
-            {'sale':5.32, 'category':'SHIRTS'},
-            {'sale':7.32, 'category':'SHIRTS'},
-            {'sale':34.32, 'category':'BELTS'},
-            {'sale':65.32, 'category':'SHIRTS'},
-            {'sale':23.32, 'category':'SHOES'},
-            {'sale':23.32, 'category':'SHOES'},
-            {'sale':43.32, 'category':'SHOES'},
-            {'sale':43.32, 'category':'SHIRTS'},
-            {'sale':23.32, 'category':'SHIRTS'}];
+           {'sale':43.32, 'category':'PANTS'},
+           {'sale':11.32, 'category':'SHIRTS'},
+           {'sale':5.32, 'category':'SHIRTS'},
+           {'sale':7.32, 'category':'SHIRTS'},
+           {'sale':34.32, 'category':'BELTS'},
+           {'sale':65.32, 'category':'SHIRTS'},
+           {'sale':23.32, 'category':'SHOES'},
+           {'sale':23.32, 'category':'SHOES'},
+           {'sale':43.32, 'category':'SHOES'},
+           {'sale':43.32, 'category':'SHIRTS'},
+           {'sale':23.32, 'category':'SHIRTS'}];
+
+let categories = raw.map( item => {return item['category']});
+let unique_categories = [...new Set(categories)];
+
 
 let chart4_data = {'data':[12,13,14,22,11],
                   'labels':['one', 'two', 'three', 'four', 'five']};
+
+
+function makeChartData(raw, items, filter_criteria) {
+    data = raw.filter( item => {
+        if (items.indexOf(item[filter_criteria]) > -1) {
+            return item
+        }
+    })
+    console.log(data);
+}
+
+
+function outputCheckBoxes() {
+    unique_categories.map( item => {
+        
+        let id = `cb_${item}`
+        let checkbox = document.getElementById(id).checked;
+        
+        if (checkbox === true) {
+            return item
+        }
+    });
+}
+
 
 var chart4 = new Chart(ctx4, {
     // The type of chart we want to create
