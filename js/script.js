@@ -3,6 +3,7 @@ Chart.defaults.global.defaultFontFamily = 'monospace';
 var ctx = document.getElementById('myChart').getContext('2d');
 var ctx2 = document.getElementById('myChart2').getContext('2d');
 var ctx3 = document.getElementById('myChart3').getContext('2d');
+var ctx4 = document.getElementById('myChart4').getContext('2d');
 
 function done(){
   var url = chart.toBase64Image();
@@ -153,4 +154,37 @@ function removeData() {
 btn3_add.addEventListener('click', addData);
 btn3_remove.addEventListener('click', removeData);
 
+/* Filtered chart */
+let raw = [{'sale':12.32, 'category':'PANTS'},
+            {'sale':43.32, 'category':'PANTS'},
+            {'sale':11.32, 'category':'SHIRTS'},
+            {'sale':5.32, 'category':'SHIRTS'},
+            {'sale':7.32, 'category':'SHIRTS'},
+            {'sale':34.32, 'category':'BELTS'},
+            {'sale':65.32, 'category':'SHIRTS'},
+            {'sale':23.32, 'category':'SHOES'},
+            {'sale':23.32, 'category':'SHOES'},
+            {'sale':43.32, 'category':'SHOES'},
+            {'sale':43.32, 'category':'SHIRTS'},
+            {'sale':23.32, 'category':'SHIRTS'}];
 
+let chart4_data = {'data':[12,13,14,22,11],
+                  'labels':['one', 'two', 'three', 'four', 'five']};
+
+var chart4 = new Chart(ctx4, {
+    // The type of chart we want to create
+    type: 'bar',
+
+    // The data for our dataset
+    data: {
+        labels: chart4_data['labels'],
+        datasets: [{
+            label: 'Some label',
+            backgroundColor: 'rgba(0,25,255,0.7)',
+            data: chart4_data['data']
+        }]
+    },
+
+    // Configuration options go here
+    options: options
+});
