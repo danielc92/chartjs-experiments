@@ -62,13 +62,20 @@
 
 				<div class="column is-full">
 					<h1>Coindesk</h1>
-					<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Assumenda nisi itaque consectetur modi ipsum excepturi debitis similique ea iste delectus magnam, possimus amet, deserunt provident voluptate. Perferendis nam quibusdam voluptatum.</p>
+					<p>This chart calls from coindesk API. The filter will update the url and update the chart data according to the date ranges.</p>
 					<canvas id="myChart5"></canvas>
-					
-				<p class="buttons">
-					<button id="coindesk-filter" class="button is-link is-outlined is-small">Filter</button>
-				</p>
-			</div>
+				</div>
+
+				<div class="column is-one-third">
+					<label for="" class="label">Start date</label>
+					<input id="start-date" class="input" type="text">
+					<label for="" class="label">End date</label>
+					<input id="end-date" class="input" type="text">
+
+					<p class="buttons" style="margin-top: 1rem;">
+						<button id="coindesk-regen" class="button is-link is-outlined">Filter</button>
+					</p>
+				</div>
 
 				</div>
 			</section>

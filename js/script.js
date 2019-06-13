@@ -298,3 +298,71 @@ var chart4 = new Chart(ctx4, {
     // Configuration options go here
     options: options
 });
+
+
+
+/*
+COIN DESK CHART
+This line chart will be able to fetch data from coindesk api (bitcoin index)
+It will also be able to filter by dates by passing in date inputs
+*/
+
+
+var entries;
+var fulfilled = false;
+
+let startDate = '2019-04-01';
+let endDate = '2019-06-01';
+let url = `https://api.coindesk.com/v1/bpi/historical/close.json?start=${startDate}&end=${endDate}`
+let button;
+var json;
+var keys;
+var values;
+
+var ctx5 = document.getElementById('myChart5').getContext('2d');
+var chart5 = new Chart(ctx5, {
+
+    type: 'line',
+    data: {
+        labels: [],
+        datasets: [{
+            label: `coindesk chart`,
+            data: [],
+            backgroundColor: 'rgba(0, 244, 111, 0.3)'
+        }]
+    },
+
+    options: {}
+});
+
+const refresh = async () => {
+    const response = await fetch(url);
+    json = await response.json();
+    keys = Object.keys(json.bpi);
+    values = Object.values(json.bpi);
+    updateChart(chart5, keys, values);
+}
+
+function updateChart(chart, keys, values) {
+    chart5.data.datasets.forEach((dataset) => {
+        dataset.data = values
+    });
+    chart5.data.labels = keys;
+    chart5.update();
+}
+
+
+function doThis() {
+    startDate = document.getElementById('start-date').value;
+    endDate = document.getElementById('end-date').value;
+    url = `https://api.coindesk.com/v1/bpi/historical/close.json?start=${startDate}&end=${endDate}`;
+    console.log(url);
+    refresh();
+}
+
+
+regenerate_button = document.getElementById('coindesk-regen');
+regenerate_button.addEventListener('click', doThis);
+
+
+refresh();
