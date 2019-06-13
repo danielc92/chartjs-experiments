@@ -168,26 +168,51 @@ let raw = [{'sale':12.32, 'category':'PANTS'},
            {'sale':43.32, 'category':'SHIRTS'},
            {'sale':23.32, 'category':'SHIRTS'}];
 
+let original_data = transposeData(raw, 'sale', 'category');
+
 let categories = raw.map( item => {return item['category']});
+
 let unique_categories = [...new Set(categories)];
 
 
-let chart4_data = {'data':[12,13,14,22,11],
-                  'labels':['one', 'two', 'three', 'four', 'five']};
-
-
-function makeChartData(raw, items, filter_criteria) {
-    data = raw.filter( item => {
+function filterData(raw, items, filter_criteria) {
+    let results = raw.filter( item => {
         if (items.indexOf(item[filter_criteria]) > -1) {
             return item
         }
     })
-    console.log(data);
+
+    return results;
+}
+
+let res = filterData(raw, ['SHIRTS', 'BELTS'], 'category');
+console.log(res);
+
+
+function transposeData(raw, data_key, label_key) {
+	
+	let transposed = {'data':[], 'labels':[]}
+
+	raw.map( dictionary => {
+
+		let key = dictionary[label_key];
+		let value = dictionary[data_key];
+		let existsIndex = transposed['labels'].indexOf(key);
+		
+		if (existsIndex === -1) {
+			transposed['labels'].push(key);
+			transposed['data'].push(value);
+		} else {
+			transposed['data'][existsIndex] += value;
+		}
+	});
+
+	return transposed
 }
 
 
 function outputCheckBoxes() {
-    unique_categories.map( item => {
+    let categories = unique_categories.filter( item => {
         
         let id = `cb_${item}`
         let checkbox = document.getElementById(id).checked;
@@ -196,7 +221,46 @@ function outputCheckBoxes() {
             return item
         }
     });
+
+    return categories;
 }
+
+let filterCheck = [];
+
+document.getElementById('filter-check').addEventListener("click", function() {
+	filterCheck = outputCheckBoxes();
+	console.log(filterCheck);
+});
+
+document.getElementById('filter-reset').addEventListener("click", function() {
+	chart4.data.labels = original_data['labels'];
+	chart4.data.datasets.forEach((dataset) => {
+		dataset.data = original_data['data'];
+	});
+	chart4.update();
+
+});
+
+document.getElementById('filter').addEventListener("click", function() {
+	// Check filters
+	filterCheck = outputCheckBoxes();
+
+	// Filter raw data in a new array
+	let raw_filtered = filterData(raw, filterCheck, 'category');
+	
+	// Transpose
+	transposed = transposeData(raw_filtered, 'sale', 'category');
+
+	// Update the chart
+	chart4.data.labels = transposed['labels'];
+	chart4.data.datasets.forEach((dataset) => {
+		dataset.data = transposed['data'];
+	});
+	chart4.update();
+
+});
+
+let transposed = transposeData(raw, 'sale', 'category');
 
 
 var chart4 = new Chart(ctx4, {
@@ -205,11 +269,11 @@ var chart4 = new Chart(ctx4, {
 
     // The data for our dataset
     data: {
-        labels: chart4_data['labels'],
+        labels: transposed['labels'],
         datasets: [{
-            label: 'Some label',
-            backgroundColor: 'rgba(0,25,255,0.7)',
-            data: chart4_data['data']
+            label: 'Mall Dataset',
+            backgroundColor: 'rgba(0,25,255,0.8)',
+            data: transposed['data']
         }]
     },
 
