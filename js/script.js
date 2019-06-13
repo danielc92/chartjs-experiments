@@ -155,26 +155,35 @@ btn3_add.addEventListener('click', addData);
 btn3_remove.addEventListener('click', removeData);
 
 /* Filtered chart */
-let raw = [{'sale':12.32, 'category':'PANTS'},
-           {'sale':43.32, 'category':'PANTS'},
-           {'sale':11.32, 'category':'SHIRTS'},
-           {'sale':5.32, 'category':'SHIRTS'},
-           {'sale':7.32, 'category':'SHIRTS'},
-           {'sale':34.32, 'category':'BELTS'},
-           {'sale':65.32, 'category':'SHIRTS'},
-           {'sale':23.32, 'category':'SHOES'},
-           {'sale':23.32, 'category':'SHOES'},
-           {'sale':43.32, 'category':'SHOES'},
-           {'sale':43.32, 'category':'SHIRTS'},
-           {'sale':23.32, 'category':'SHIRTS'}];
+let raw = [{'sale':12.32, 'category':'PANTS', 'region':'west'},
+           {'sale':43.32, 'category':'PANTS', 'region':'west'},
+           {'sale':11.32, 'category':'SHIRTS', 'region':'south-east'},
+           {'sale':5.32, 'category':'SHIRTS', 'region':'south-east'},
+           {'sale':7.32, 'category':'SHIRTS', 'region':'west'},
+           {'sale':34.32, 'category':'BELTS', 'region':'east'},
+           {'sale':65.32, 'category':'SHIRTS', 'region':'west'},
+           {'sale':23.32, 'category':'SHOES', 'region':'west'},
+           {'sale':23.32, 'category':'SHOES', 'region':'east'},
+           {'sale':43.32, 'category':'SHOES', 'region':'north'},
+           {'sale':43.32, 'category':'SHIRTS', 'region':'north'},
+           {'sale':23.32, 'category':'SHIRTS', 'region':'west'}];
 
+
+// Set two copies of transposed data (one for filtering, one for resetting)
+let transposed = transposeData(raw, 'sale', 'category');
 let original_data = transposeData(raw, 'sale', 'category');
 
-let categories = raw.map( item => {return item['category']});
 
+// Set unique_categories
+let categories = raw.map( item => {return item['category']});
 let unique_categories = [...new Set(categories)];
 
 
+// Set global variable for filterCheck
+let filterCheck = [];
+
+
+// Function to filter data
 function filterData(raw, items, filter_criteria) {
     let results = raw.filter( item => {
         if (items.indexOf(item[filter_criteria]) > -1) {
@@ -185,10 +194,8 @@ function filterData(raw, items, filter_criteria) {
     return results;
 }
 
-let res = filterData(raw, ['SHIRTS', 'BELTS'], 'category');
-console.log(res);
 
-
+// Function to transpose data into chart JS format
 function transposeData(raw, data_key, label_key) {
 	
 	let transposed = {'data':[], 'labels':[]}
@@ -211,7 +218,8 @@ function transposeData(raw, data_key, label_key) {
 }
 
 
-function outputCheckBoxes() {
+// Function to Check checkbox values
+function validateCheckboxes() {
     let categories = unique_categories.filter( item => {
         
         let id = `cb_${item}`
@@ -225,12 +233,13 @@ function outputCheckBoxes() {
     return categories;
 }
 
-let filterCheck = [];
 
+// Add the event listeners for each button
 document.getElementById('filter-check').addEventListener("click", function() {
-	filterCheck = outputCheckBoxes();
+	filterCheck = validateCheckboxes();
 	console.log(filterCheck);
 });
+
 
 document.getElementById('filter-reset').addEventListener("click", function() {
 	chart4.data.labels = original_data['labels'];
@@ -243,7 +252,7 @@ document.getElementById('filter-reset').addEventListener("click", function() {
 
 document.getElementById('filter').addEventListener("click", function() {
 	// Check filters
-	filterCheck = outputCheckBoxes();
+	filterCheck = validateCheckboxes();
 
 	// Filter raw data in a new array
 	let raw_filtered = filterData(raw, filterCheck, 'category');
@@ -260,9 +269,8 @@ document.getElementById('filter').addEventListener("click", function() {
 
 });
 
-let transposed = transposeData(raw, 'sale', 'category');
 
-
+// Build the chart
 var chart4 = new Chart(ctx4, {
     // The type of chart we want to create
     type: 'bar',
