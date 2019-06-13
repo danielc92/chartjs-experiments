@@ -1,4 +1,4 @@
-Chart.defaults.global.defaultFontFamily = 'monospace';
+//Chart.defaults.global.defaultFontFamily = 'monospace';
 
 var ctx = document.getElementById('myChart').getContext('2d');
 var ctx2 = document.getElementById('myChart2').getContext('2d');
@@ -290,7 +290,7 @@ var chart4 = new Chart(ctx4, {
         labels: transposed['labels'],
         datasets: [{
             label: 'Mall Dataset',
-            backgroundColor: 'rgba(0,25,255,0.8)',
+            backgroundColor: '#9830b5',
             data: transposed['data']
         }]
     },

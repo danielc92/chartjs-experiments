@@ -15,20 +15,20 @@
 			<section class="content">
 				<div class="columns is-multiline">
 
-					<div class="column">
+					<div class="column is-full">
 						<h1>Scatter Chart</h1>
 						<p>Some chart description</p>
 						<a href="" id="download-chart" download="chart.png">Download this chart.</a>
 						<canvas id="myChart"></canvas>
 					</div>
 
-					<div class="column">
+					<div class="column is-full"">
 						<h1>Scatter Chart</h1>
 						<p>Some chart description</p>
 						<canvas id="myChart2"></canvas>
 					</div>
 
-					<div class="column">
+					<div class="column is-full"">
 						<h1>Employees from XYZ Corp</h1>
 						<p>Some chart description</p>
 							<div class="field">
@@ -46,18 +46,17 @@
 						<h1>Tests</h1>
 						<canvas id="myChart4"></canvas>
 						<label class="label">Filters</label>
-						<div class="field" style="font-family: monospace;">
-						<label class="">PANTS <input id="cb_PANTS" type="checkbox"></label>
-						<label class="">SHIRTS <input id="cb_SHIRTS" type="checkbox"></label>
-						<label class="">BELTS <input id="cb_BELTS" type="checkbox"></label>
-						<label class="">SHOES <input id="cb_SHOES" type="checkbox"></label>
-					</div>
+						<ul>
+							<li><label class="">PANTS <input id="cb_PANTS" type="checkbox"></label></li> 
+							<li><label class="">SHIRTS <input id="cb_SHIRTS" type="checkbox"></label></li> 
+							<li><label class="">BELTS <input id="cb_BELTS" type="checkbox"></label></li> 
+							<li><label class="">SHOES <input id="cb_SHOES" type="checkbox"></label></li> 
+						</ul>
 					
 					<p class="buttons">
 						<button id="filter" class="button is-link is-outlined is-small">Filter</button>
-						<button id="filter-check" class="button is-link is-outlined is-small">Check filter values</button>
 						<button id="filter-reset" class="button is-link is-outlined is-small">Reset Filters</button>
-
+						<button id="filter-check" class="button is-link is-outlined is-small">Check filter values</button>
 					</p>
 				</div>
 				</div>
