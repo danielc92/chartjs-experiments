@@ -169,11 +169,6 @@ let raw = [{'sale':12.32, 'category':'PANTS', 'region':'west'},
            {'sale':23.32, 'category':'SHIRTS', 'region':'west'}];
 
 
-// Set two copies of transposed data (one for filtering, one for resetting)
-let transposed = transposeData(raw, 'sale', 'category');
-let original_data = transposeData(raw, 'sale', 'category');
-
-
 // Set unique_categories
 let categories = raw.map( item => {return item['category']});
 let unique_categories = [...new Set(categories)];
@@ -182,6 +177,14 @@ let unique_categories = [...new Set(categories)];
 // Set global variable for filterCheck
 let filterCheck = [];
 
+
+// Set Global for x axis
+let xAxis = 'region';
+
+
+// Set two copies of transposed data (one for filtering, one for resetting)
+let transposed = transposeData(raw, 'sale', xAxis);
+let original_data = transposeData(raw, 'sale', xAxis);
 
 // Function to filter data
 function filterData(raw, items, filter_criteria) {
@@ -242,6 +245,13 @@ document.getElementById('filter-check').addEventListener("click", function() {
 
 
 document.getElementById('filter-reset').addEventListener("click", function() {
+	
+	// Reset all checkboxes
+	let allBoxes = document.querySelectorAll('input[type=checkbox]');
+
+	//allboxes.map(item => {item.checked = false})
+	allBoxes.forEach(item => {item.checked = false})
+
 	chart4.data.labels = original_data['labels'];
 	chart4.data.datasets.forEach((dataset) => {
 		dataset.data = original_data['data'];
@@ -258,7 +268,7 @@ document.getElementById('filter').addEventListener("click", function() {
 	let raw_filtered = filterData(raw, filterCheck, 'category');
 	
 	// Transpose
-	transposed = transposeData(raw_filtered, 'sale', 'category');
+	transposed = transposeData(raw_filtered, 'sale', xAxis);
 
 	// Update the chart
 	chart4.data.labels = transposed['labels'];
