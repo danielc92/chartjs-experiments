@@ -3,10 +3,9 @@
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hello Bulma!</title>
+    <title>Chart.js Experiments</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-	<title>Chart JS</title>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 </head>
 <body>
@@ -36,7 +35,7 @@
 						<canvas id="myChart3"></canvas>
 					</div>
 
-					<div class="column is-one-third">
+					<div class="column is-half">
 						<div class="field">
 							<label for="" class="label help">Name</label>
 							<input class="input" type="text" id="label_input">
@@ -45,13 +44,29 @@
 							<label for="" class="label help">Hours Worked</label>
 							<input class="input" type="number" id="number_input">
 						</div>
-						<button class="button is-link is-outlined" id="btn3_add">Add data</button>
-						<button class="button is-link is-outlined" id="btn3_remove">Remove last data</button>
+						<p class="buttons">
+								<button class="button is-link is-outlined" id="btn3_add">Add data</button>
+								<button class="button is-link is-outlined" id="btn3_remove">Remove last data</button>
+						</p>
+						
 					</div>
 
 					<div class="column is-full">
 						<h1>Filtered Chart</h1>
 						<p>This chart can be filtered with checkboxes. Check filter values will console.log() the filter values.</p>
+						<h6>Dataset</h6>
+						<pre>[{'sale':12.32, 'category':'PANTS', 'region':'west'},
+{'sale':43.32, 'category':'PANTS', 'region':'west'},
+{'sale':11.32, 'category':'SHIRTS', 'region':'south-east'},
+{'sale':5.32, 'category':'SHIRTS', 'region':'south-east'},
+{'sale':7.32, 'category':'SHIRTS', 'region':'west'},
+{'sale':34.32, 'category':'BELTS', 'region':'east'},
+{'sale':65.32, 'category':'SHIRTS', 'region':'west'},
+{'sale':23.32, 'category':'SHOES', 'region':'west'},
+{'sale':23.32, 'category':'SHOES', 'region':'east'},
+{'sale':43.32, 'category':'SHOES', 'region':'north'},
+{'sale':43.32, 'category':'SHIRTS', 'region':'north'},
+{'sale':23.32, 'category':'SHIRTS', 'region':'west'}]</pre>
 						<canvas id="myChart4"></canvas>
 						<label class="label">Filters</label>
 						<ul>
@@ -74,7 +89,7 @@
 					<canvas id="myChart5"></canvas>
 				</div>
 
-				<div class="column is-one-third">
+				<div class="column is-half">
 					<label for="" class="label help">Start date</label>
 					<input id="start-date" class="input" type="text">
 					<label for="" class="label help">End date</label>

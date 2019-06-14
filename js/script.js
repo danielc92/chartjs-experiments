@@ -290,7 +290,7 @@ var chart4 = new Chart(ctx4, {
         labels: transposed['labels'],
         datasets: [{
             label: 'Mall Dataset',
-            backgroundColor: '#9830b5',
+            backgroundColor: 'rgba(0, 244, 111, 0.5)',
             data: transposed['data']
         }]
     },
