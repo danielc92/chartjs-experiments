@@ -1,6 +1,8 @@
 # Chart.js Experiments
 Exploring features of, and building charts using Chart.js library. In order to compare it to proprietary solutions such as Tableau/Power BI.
 
+- [Visit the website on github pages](https://danielc92.github.io/chartjs-experiments/)
+
 # Before you get started
 - HTML and basic Javascript knowledge
 
